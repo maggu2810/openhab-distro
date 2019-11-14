@@ -32,7 +32,6 @@ feature.openhab-base: \
     bnd.identity;id='org.openhab.core.io.net',\
     bnd.identity;id='org.openhab.core.io.http',\
     bnd.identity;id='org.openhab.core.io.rest',\
-    bnd.identity;id='org.openhab.core.io.rest.optimize',\
     bnd.identity;id='org.openhab.core.io.rest.core',\
     bnd.identity;id='org.openhab.core.io.rest.sse'
 
@@ -46,6 +45,8 @@ feature.openhab-model-runtime-all: \
 
 -runrequires: \
 	bnd.identity;id='org.eclipse.equinox.metatype',\
+	bnd.identity;id='org.apache.aries.jax.rs.whiteboard',\
+	bnd.identity;id='org.ops4j.pax.web.pax-web-extender-whiteboard',\
 	${feature.logging},\
 	${feature.debug},\
 	${feature.openhab-base},\
@@ -76,7 +77,7 @@ feature.openhab-model-runtime-all: \
 	logback.configurationFile=file:${.}/runtime/logback.xml,\
 	log4j.configuration=file:${.}/runtime/log4j.xml
 
--runblacklist: bnd.identity;id='org.apache.aries.javax.jax.rs-api',\
+-runblacklist: \
     bnd.identity;id='org.apache.aries.jpa.container',\
     bnd.identity;id='org.openhab.core.test'
 
@@ -86,8 +87,6 @@ feature.openhab-model-runtime-all: \
 -runbundles: \
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
-	com.eclipsesource.jaxrs.jersey-all;version='[2.22.2,2.22.3)',\
-	com.eclipsesource.jaxrs.publisher;version='[5.3.1,5.3.2)',\
 	com.google.gson;version='[2.8.2,2.8.3)',\
 	com.google.inject;version='[3.0.0,3.0.1)',\
 	javax.measure.unit-api;version='[1.0.0,1.0.1)',\
@@ -121,19 +120,28 @@ feature.openhab-model-runtime-all: \
 	org.eclipse.emf.ecore.xmi;version='[2.12.0,2.12.1)',\
 	org.eclipse.equinox.event;version='[1.4.300,1.4.301)',\
 	org.eclipse.equinox.metatype;version='[1.4.500,1.4.501)',\
-	org.eclipse.jetty.client;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.http;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.io;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.proxy;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.security;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.server;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.servlet;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.util;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.websocket.api;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.websocket.client;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.websocket.common;version='[9.4.11,9.4.12)',\
-	org.eclipse.jetty.xml;version='[9.4.11,9.4.12)',\
 	org.glassfish.hk2.external.aopalliance-repackaged;version='[2.4.0,2.4.1)',\
+    org.osgi.service.jaxrs;version='[1.0.0,1.0.1)',\
+    org.osgi.util.function;version='[1.1.0,1.1.1)',\
+    org.osgi.util.promise;version='[1.1.0,1.1.1)',\
+    org.eclipse.jetty.client;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.http;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.io;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.proxy;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.security;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.server;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.servlet;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.util;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.websocket.api;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.websocket.client;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.websocket.common;version='[9.4.11,9.4.12)',\
+    org.eclipse.jetty.xml;version='[9.4.11,9.4.12)',\
+    org.ops4j.pax.swissbox.optional.jcl;version='[1.8.2,1.8.3)',\
+    org.ops4j.pax.web.pax-web-api;version='[7.2.3,7.2.4)',\
+    org.ops4j.pax.web.pax-web-extender-whiteboard;version='[7.2.3,7.2.4)',\
+    org.ops4j.pax.web.pax-web-jetty;version='[7.2.3,7.2.4)',\
+    org.ops4j.pax.web.pax-web-runtime;version='[7.2.3,7.2.4)',\
+    org.ops4j.pax.web.pax-web-spi;version='[7.2.3,7.2.4)',\
 	org.mapdb.mapdb;version='[1.0.9,1.0.10)',\
 	org.openhab.core;version='[2.5.0,2.5.1)',\
 	org.openhab.core.audio;version='[2.5.0,2.5.1)',\
@@ -158,7 +166,6 @@ feature.openhab-model-runtime-all: \
 	org.openhab.core.io.net;version='[2.5.0,2.5.1)',\
 	org.openhab.core.io.rest;version='[2.5.0,2.5.1)',\
 	org.openhab.core.io.rest.core;version='[2.5.0,2.5.1)',\
-	org.openhab.core.io.rest.optimize;version='[2.5.0,2.5.1)',\
 	org.openhab.core.io.rest.sitemap;version='[2.5.0,2.5.1)',\
 	org.openhab.core.io.rest.sse;version='[2.5.0,2.5.1)',\
 	org.openhab.core.model.core;version='[2.5.0,2.5.1)',\
@@ -190,11 +197,6 @@ feature.openhab-model-runtime-all: \
 	org.openhab.ui.iconset.classic;version='[2.5.0,2.5.1)',\
 	org.openhab.ui.paper;version='[2.5.0,2.5.1)',\
 	org.openhab.ui.restdocs;version='[2.5.0,2.5.1)',\
-	org.ops4j.pax.swissbox.optional.jcl;version='[1.8.2,1.8.3)',\
-	org.ops4j.pax.web.pax-web-api;version='[7.2.3,7.2.4)',\
-	org.ops4j.pax.web.pax-web-jetty;version='[7.2.3,7.2.4)',\
-	org.ops4j.pax.web.pax-web-runtime;version='[7.2.3,7.2.4)',\
-	org.ops4j.pax.web.pax-web-spi;version='[7.2.3,7.2.4)',\
 	org.osgi.service.event;version='[1.4.0,1.4.1)',\
 	org.osgi.service.metatype;version='[1.4.0,1.4.1)',\
 	org.threeten.extra;version='[1.4.0,1.4.1)',\
@@ -215,4 +217,7 @@ feature.openhab-model-runtime-all: \
 	org.objectweb.asm;version='[7.1.0,7.1.1)',\
 	org.objectweb.asm.commons;version='[7.1.0,7.1.1)',\
 	org.objectweb.asm.tree;version='[7.1.0,7.1.1)',\
-	slf4j.simple;version='[1.7.21,1.7.22)'
+	org.apache.aries.javax.jax.rs-api;version='[1.0.0,1.0.1)',\
+	org.apache.aries.jax.rs.whiteboard;version='[1.0.5,1.0.6)',\
+	org.apache.geronimo.specs.geronimo-annotation_1.3_spec;version='[1.1.0,1.1.1)',\
+	org.glassfish.hk2.external.javax.inject;version='[2.4.0,2.4.1)'
